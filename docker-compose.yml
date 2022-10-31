@@ -12,7 +12,7 @@ services:
     privileged: true
     network_mode: host
     command: >
-      bash -c "/usr/sbin/nginx &&:
+      bash -c "/usr/sbin/nginx &&
             cd /home/app &&
             npm install &&
             npm start"
