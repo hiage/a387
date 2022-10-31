@@ -2,16 +2,20 @@ version: "3"
 
 services:
   jarkom-labs:
-    build: 
-      context: .
+    # build: 
+    #   context: .
+    #   dockerfile: Dockerfile
+    # image: jarkom-labs
+    image: hiage/jarkom-labs:latest
     hostname: jarkom-labs
     container_name: jarkom-labs
     privileged: true
     network_mode: host
     command: >
-      sh -c "cd /home/app &&
+      bash -c "/usr/sbin/nginx &&:
+            cd /home/app &&
             npm install &&
             npm start"
     volumes:
       - "./a387-jarkom-labs:/home/app"
-      - "./sites-available:/etc/nginx/sites-available"
+      - "./sites-available/konfigurasiNGINX_abdurrahmanalghifari.txt:/etc/nginx/sites-available/default"
