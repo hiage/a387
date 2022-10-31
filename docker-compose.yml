@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  jarkom-labs:
+    build: 
+      context: .
+    hostname: jarkom-labs
+    container_name: jarkom-labs
+    privileged: true
+    network_mode: host
+    command: >
+      sh -c "cd /home/app &&
+            npm install &&
+            npm start"
+    volumes:
+      - "./a387-jarkom-labs:/home/app"
+      - "./sites-available:/etc/nginx/sites-available"
