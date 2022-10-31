@@ -1,20 +1,22 @@
 version: "3"
 
 services:
-  jarkom-labs:
-    # build: 
-    #   context: .
-    #   dockerfile: Dockerfile
-    # image: jarkom-labs
-    image: hiage/jarkom-labs:latest
-    hostname: jarkom-labs
-    container_name: jarkom-labs
+  jarkom-labs-apache2:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: hiage/jarkom-labs-apache2:latest
+    hostname: jarkom-labs-apache2
+    container_name: jarkom-labs-apache2
     privileged: true
     network_mode: host
     command: >
-      bash -c "cd /home/app &&
-            npm install &&
-            npm start"
+      bash -c "a2dissite 000-default && a2ensite nodeapp.conf
+               a2enmod proxy proxy_http rewrite headers expires &&
+               service apache2 start &&
+               cd /home/app &&
+               npm install &&
+               npm start"
     volumes:
-      - "./a387-jarkom-labs:/home/app"
-      - "./sites-available/konfigurasiNGINX_abdurrahmanalghifari.txt:/etc/nginx/sites-available/default"
+      - "../a387-jarkom-labs:/home/app"
+      - "./konfigurasiAPACHE2_abdurrahmanalghifari.txt:/etc/apache2/sites-available/nodeapp.conf"
